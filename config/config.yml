@@ -1,0 +1,8 @@
+environment: develop
+
+sqldriver: postgresql
+user: root
+password: root
+protocol: tcp
+address: 127.0.0.1:5432
+database: sample

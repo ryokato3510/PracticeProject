@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  postgresql:
+    container_name: postgresql
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      PGPASSWORD: root123
+      POSTGRES_DB: sample
+      TZ: "Asia/Tokyo"
+    hostname: postgresql
+    ports:
+      - 5432:5432
+    volumes:
+       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+       - postgres-data:/var/lib/postgresql/data
+
+  pgadmin4:
+    container_name: pgadmin4
+    image: dpage/pgadmin4:latest
+    restart: always
+    ports:
+      - 81:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root@example.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    hostname: pgadmin4
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - postgreql
+
+volumes:
+  postgres-data:
+  pgadmin-data:
