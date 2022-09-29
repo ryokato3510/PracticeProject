@@ -2,6 +2,8 @@ version: 2.1
 jobs:
   build:
     parameters:
+      go-version:
+        type: string
       golangci-lint-version:
         type: string
     working_directory: ~/repo
@@ -25,10 +27,16 @@ jobs:
       - run:
           name: Check GolangCI-Lint
           command: golangci-lint --version
-
       - run:
           name: Run GolangCI-Lint
           command: ./bin/golangci-lint run --tests
+      - run:
+          name: Install StaticCheck
+          command: go install honnef.co/go/tools/cmd/staticcheck@latest
+      - run:
+          name: Run StaticCheck
+          command: staticcheck -go << parameters.golangci-lint-version >> ./...
+
       # - run:
       #     name: Run tests
       #     command: go test -v
@@ -36,4 +44,5 @@ workflows:
   default_workflow:
     jobs:
       - build:
+          go-version: "1.19"
           golangci-lint-version: "1.49.0"
