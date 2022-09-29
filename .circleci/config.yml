@@ -28,7 +28,7 @@ jobs:
 
       - run:
           name: Run GolangCI-Lint
-          command: ./bin/golangci-lint run --tests --disable-all --enable=goimports --enable=golint --enable=govet --enable=errcheck --enable=staticcheck
+          command: ./bin/golangci-lint run --tests
       # - run:
       #     name: Run tests
       #     command: go test -v
