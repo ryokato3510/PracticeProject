@@ -1,6 +1,6 @@
 version: 2.1
-
-build:
+jobs:
+  build:
     working_directory: ~/repo
     docker:
       - image: cimg/go:1.19.0-browsers
@@ -22,3 +22,7 @@ build:
       # - run:
       #     name: Run tests
       #     command: go test -v
+workflows:
+  default_workflow:
+    jobs:
+      - build
