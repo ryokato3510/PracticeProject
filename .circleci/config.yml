@@ -1,6 +1,9 @@
 version: 2.1
 jobs:
   build:
+    parameters:
+      golangci-lint-version:
+        type: string
     working_directory: ~/repo
     docker:
       - image: cimg/go:1.19.0-browsers
