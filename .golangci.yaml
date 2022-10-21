@@ -1,0 +1,28 @@
+# Options for analysis running. https://golangci-lint.run/usage/configuration/#run-configuration
+run:
+  # Timeout for analysis, e.g. 30s, 5m.
+  # Default: 1m
+  timeout: 5m
+  # Exit code when at least one issue was found.
+  # Default: 1
+  issues-exit-code: 0
+  # Allow multiple parallel golangci-lint instances running.
+  # If false (default) - golangci-lint acquires file lock on start.
+  allow-parallel-runners: true
+linters:
+  enable-all: true
+  disable:
+    - maligned
+    - prealloc
+    - golint
+    - varcheck
+    - structcheck
+    - nosnakecase
+    - interfacer
+    - ifshort
+    - exhaustivestruct
+    - deadcode
+    - scopelint
+    - rowserrcheck
+    - staticcheck
+  go: "1.19"
