@@ -17,6 +17,10 @@ var ac = controller.NewApiController()
 var ro = controller.NewRouter(ac)
 
 func main() {
+
+	// Generate a password that is 64 characters long with 10 digits, 10 symbols,
+	// allowing upper and lower case letters, disallowing repeat characters.
+
 	log.Info().Msg("hello world")
 	loadEnv()
 
@@ -37,7 +41,7 @@ func main() {
 	http.HandleFunc("/hello", ro.HandleTodosRequest)
 	fmt.Println("Server Start")
 	s.ListenAndServe()
-	// log.Fatal()
+	log.Fatal()
 }
 
 // Read end file.
