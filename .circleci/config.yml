@@ -24,9 +24,9 @@ jobs:
       - run:
           name: Install GolangCI-Lint
           command: curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v<< parameters.golangci-lint-version >>
-      - run:
-          name: Run GolangCI-Lint
-          command: ./bin/golangci-lint run --tests --color always
+      # - run:
+      #     name: Run GolangCI-Lint
+      #     command: ./bin/golangci-lint run --tests --color always
       - run:
           name: Install StaticCheck
           command: go install honnef.co/go/tools/cmd/staticcheck@latest
