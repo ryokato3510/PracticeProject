@@ -57,7 +57,7 @@ func loadEnv() {
 	fmt.Println(message)
 }
 
-// Read config.yml
+// LoadConfig Read config.yml
 func LoadConfig(filePath string) (config *Config, err error) {
 	content, err := os.ReadFile(filePath)
 	if err != nil {
