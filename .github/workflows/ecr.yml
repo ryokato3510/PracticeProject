@@ -9,6 +9,7 @@ env:
   ECR_REPOSITORY: point-app-backend       # file, e.g. .aws/task-definition.json
 
 permissions:
+  id-token: write
   contents: read
   # issues: read
   # pull-requests: write
