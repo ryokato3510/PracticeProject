@@ -11,6 +11,7 @@ COPY ./cmd/PracticeProject/*.go ./cmd/PracticeProject/
 COPY ./pkg/ ./pkg/
 
 RUN go build ./cmd/PracticeProject/
+# RUN g go build ./...
 
 EXPOSE 8081
 
