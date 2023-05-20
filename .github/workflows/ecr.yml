@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: ap-northeast-1
-  ECR_REPOSITORY: ${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}
+  ECR_REPOSITORY: ${{ github.repository }}
 
 permissions:
   id-token: write
@@ -50,8 +50,6 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           # タグをlatestとコミットidをつけてビルド
-          docker image build --target deploy -t $ECR_REGISTRY/${{ steps.lowercase_repo_name.outputs.lowercase_repo_name }}/}:latest\
-           -t $ECR_REGISTRY/${{ steps.lowercase_repo_name.outputs.lowercase_repo_name }}/}:$IMAGE_TAG .
-          # ECRにpush
-          docker image push -a $ECR_REGISTRY/${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}
-          echo "::set-output name=image::$ECR_REGISTRY/${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}:$IMAGE_TAG"
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/${ECR_REPOSITORY}:$IMAGE_TAG"
