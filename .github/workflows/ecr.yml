@@ -21,6 +21,12 @@ jobs:
       run:
         shell: bash
     steps:
+      - name: Get repository name
+        id: repo_name
+        run: echo "::set-output name=repo_name::${{ github.repository }}"
+      - name: Convert repository name to lowercase
+        id: lowercase_repo_name
+        run: echo "::set-output name=lowercase_repo_name::${{ steps.repo_name.outputs.repo_name | lower }}"
       - name: Generate session name
         id: session
         run: |
@@ -47,7 +53,8 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           # タグをlatestとコミットidをつけてビルド
-          docker image build --target deploy -t $ECR_REGISTRY/${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}:latest -t $ECR_REGISTRY/${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}:$IMAGE_TAG .
+          docker image build --target deploy -t $ECR_REGISTRY/${{ steps.lowercase_repo_name.outputs.lowercase_repo_name }}/}:latest\
+           -t $ECR_REGISTRY/${{ steps.lowercase_repo_name.outputs.lowercase_repo_name }}/}:$IMAGE_TAG .
           # ECRにpush
           docker image push -a $ECR_REGISTRY/${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}
           echo "::set-output name=image::$ECR_REGISTRY/${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}:$IMAGE_TAG"
