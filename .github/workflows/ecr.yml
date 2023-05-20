@@ -46,7 +46,7 @@ jobs:
 
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
-          ECR_REPOSITORY_LOWER_CASE=${{ github.repository_owner#${github.repository}/ }}
+          ECR_REPOSITORY_LOWER_CASE=${{ GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/ }}
           docker build -t $ECR_REGISTRY/${{ ECR_REPOSITORY }}:$IMAGE_TAG .
           docker push $ECR_REGISTRY/${{ ECR_REPOSITORY }}:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/${{ ECR_REPOSITORY }}:$IMAGE_TAG"
