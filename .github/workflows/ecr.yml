@@ -21,12 +21,9 @@ jobs:
       run:
         shell: bash
     steps:
-      - name: Get repository name
-        id: repo_name
-        run: echo "::set-output name=repo_name::${{ github.repository }}"
       - name: Convert repository name to lowercase
         id: lowercase_repo_name
-        run: echo "::set-output name=lowercase_repo_name::${{ steps.repo_name.outputs.repo_name | lower }}"
+        run: echo "::set-output name=lowercase_repo_name::${{ github.repository }}"
       - name: Generate session name
         id: session
         run: |
